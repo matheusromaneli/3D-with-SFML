@@ -1,0 +1,7 @@
+.vscode
+.vscode/*
+Objects
+Objects/*
+main.o 
+Makefile
+main.exe

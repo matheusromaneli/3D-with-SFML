@@ -17,7 +17,6 @@ class Mesh: public sf::Drawable{
             for(int i = 0; i < size_mesh; i++){
                 plane[i].draws(target,states);
             }
-            // target.draw(plane[0], states);
         }
 
     public:
@@ -89,7 +88,7 @@ class Mesh: public sf::Drawable{
             FILE* fe = fopen(file, "r");
             char type = 'v';
             float p1,p2,p3;
-            Point3D vertices[50];
+            Point3D vertices[40000];
             for(int i =0; type != 'f'; i++){
                 fscanf(fe, "%c %f %f %f\n", &type, &p1, &p2, &p3);
                 if(type == 'v') vertices[i] = Point3D(p1,p2,p3);

@@ -20,9 +20,9 @@ class Triangle{
         {
             sf::Vertex line[4];
             line[0]= sf::Vertex(sf::Vector2f(points[0].x, points[0].y),sf::Color::White);
-            line[1]= sf::Vertex(sf::Vector2f(points[1].x, points[1].y),sf::Color::White);
-            line[2]= sf::Vertex(sf::Vector2f(points[2].x, points[2].y),sf::Color::White);
-            line[3]= sf::Vertex(sf::Vector2f(points[0].x, points[0].y),sf::Color::White);
+            line[1]= sf::Vertex(sf::Vector2f(points[1].x, points[1].y),sf::Color::Blue);
+            line[2]= sf::Vertex(sf::Vector2f(points[2].x, points[2].y),sf::Color::Green);
+            line[3]= sf::Vertex(sf::Vector2f(points[0].x, points[0].y),sf::Color::Red);
             target.draw(line, 4, sf::LineStrip, states);
         }
 

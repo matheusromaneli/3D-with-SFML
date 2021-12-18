@@ -4,6 +4,9 @@
 
 using namespace std;
 class Point3D{
+  private:
+    float dx = 0;
+    float dy = 0;
   public:
     double x,y,z;
 
@@ -41,7 +44,7 @@ class Point3D{
       y = aux_y;
     }
 
-    void rotateX(int angle, int dx, int dy){
+    void selfRotateX(int angle){
       x -= dx;
       y -= dy;
       double rad = M_PI * angle/180;
@@ -53,7 +56,7 @@ class Point3D{
       y += dy;
     }
 
-    void rotateY(int angle, int dx, int dy){
+    void selfRotateY(int angle){
       x -= dx;
       y -= dy;
       double rad = M_PI * angle/180;
@@ -65,7 +68,7 @@ class Point3D{
       y += dy;
     }
 
-    void rotateZ(int angle, int dx, int dy){
+    void selfRotateZ(int angle){
       x -= dx;
       y -= dy;
       double rad = M_PI * angle/180;
@@ -77,9 +80,11 @@ class Point3D{
       y += dy;
     }
 
-    void translate(int dx, int dy){
-      x += dx;
-      y += dy;
+    void translate(int tx, int ty){
+      x += tx;
+      y += ty;
+      dx+= tx;
+      dy+= ty;
     }
 
     void resize(int n){

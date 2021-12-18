@@ -9,8 +9,7 @@ int main(int argc, char const *argv[])
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
     Mesh plano;
     plano.readFrom("craneo2.obj");
-    int size = 2;
-    plano.resize(200);
+    plano.resize(300);
     plano.translate(400,300);
     int dr = 2;
     sf::Vector2i mouse;
@@ -31,12 +30,12 @@ int main(int argc, char const *argv[])
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
                 plano.rotateY(dr);
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-                plano.resize(size);
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !(size - 10 < 1)){
-                plano.resize(size);
-            }
+            // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+            //     plano.resize(size);
+            // }
+            // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !(size - 10 < 1)){
+            //     plano.resize(size);
+            // }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
                 plano.selfRotateY(-dr);
             }

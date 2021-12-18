@@ -8,6 +8,8 @@ using namespace std;
 class Mesh: public sf::Drawable{
     private:
         Triangle* plane = NULL;
+        Point3D* points = NULL;
+        long int size_points = 0;
         int size_mesh = 0;
         int translateX = 0;
         int translateY = 0;
@@ -21,7 +23,7 @@ class Mesh: public sf::Drawable{
 
     public:
     
-        void addTriangle(Point3D a, Point3D b, Point3D c){
+        void addTriangle(Point3D* a, Point3D* b, Point3D* c){
             size_mesh++;
             plane = (Triangle*)realloc(plane, sizeof(Triangle)*size_mesh);
             plane[size_mesh-1] = Triangle(a,b,c);
@@ -30,57 +32,57 @@ class Mesh: public sf::Drawable{
 
         void rotateX(int angle){
             int i = 0;
-            for(i = 0; i < size_mesh; i++){
-                plane[i].rotateX(angle);
+            for(i = 0; i < size_points; i++){
+                points[i].rotateX(angle);
             }
         }
         
         void rotateY(int angle){
             int i = 0;
-            for(i = 0; i < size_mesh; i++){
-                plane[i].rotateY(angle);
+            for(i = 0; i < size_points; i++){
+                points[i].rotateY(angle);
             }
         }
         
         void rotateZ(int angle){
             int i = 0;
-            for(i = 0; i < size_mesh; i++){
-                plane[i].rotateZ(angle);
+            for(i = 0; i < size_points; i++){
+                points[i].rotateZ(angle);
             }
         }
 
         void selfRotateX(int angle){
             int i = 0;
-            for(i = 0; i < size_mesh; i++){
-                plane[i].selfRotateX(angle);
+            for(i = 0; i < size_points; i++){
+                points[i].selfRotateX(angle);
             }
         }
         
         void selfRotateY(int angle){
             int i = 0;
-            for(i = 0; i < size_mesh; i++){
-                plane[i].selfRotateY(angle);
+            for(i = 0; i < size_points; i++){
+                points[i].selfRotateY(angle);
             }
         }
         
         void selfRotateZ(int angle){
             int i = 0;
-            for(i = 0; i < size_mesh; i++){
-                plane[i].selfRotateZ(angle);
+            for(i = 0; i < size_points; i++){
+                points[i].selfRotateZ(angle);
             }
         }
 
         void translate(int dx, int dy){
             translateX = dx;
             translateY = dy;
-            for(int i = 0; i < size_mesh; i++){
-                plane[i].translate(dx,dy);
+            for(int i = 0; i < size_points; i++){
+                points[i].translate(dx,dy);
             }
         }
 
         void resize(int n){
-            for(int i = 0; i < size_mesh; i++){
-                plane[i].resize(n);
+            for(int i = 0; i < size_points; i++){
+                points[i].resize(n);
             }
         }
 
@@ -88,18 +90,20 @@ class Mesh: public sf::Drawable{
             FILE* fe = fopen(file, "r");
             char type = 'v';
             float p1,p2,p3;
-            Point3D vertices[40000];
             for(int i =0; type != 'f'; i++){
                 fscanf(fe, "%c %f %f %f\n", &type, &p1, &p2, &p3);
-                if(type == 'v') vertices[i] = Point3D(p1,p2,p3);
+                if(type == 'v'){
+                    size_points++;
+                    points = (Point3D*) realloc(points, sizeof(Point3D)*size_points);
+                    points[i] = Point3D(p1,p2,p3);
+                } 
             }
             int l1 = (int)(p1);
             int l2 = (int)(p2);
             int l3 = (int)(p3);
-            this->addTriangle(vertices[l1-1], vertices[l2-1], vertices[l3-1]);
-            while(fscanf(fe,"%c %d %d %d\n", &type, &l1, &l2, &l3) != -1){
-                this->addTriangle(vertices[l1-1], vertices[l2-1], vertices[l3-1]);
-            }
+            do{
+                this->addTriangle(points+l1-1, points+l2-1, points+l3-1);
+            }while(fscanf(fe,"%c %d %d %d\n", &type, &l1, &l2, &l3) != -1);
         }
 
 };

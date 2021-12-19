@@ -21,17 +21,17 @@ class Triangle{
             Point3D l1(points[1]->x - points[0]->x, points[1]->y - points[0]->y, points[1]->z - points[0]->z);
             Point3D l2(points[2]->x - points[0]->x, points[2]->y - points[0]->y, points[2]->z - points[0]->z);
             Point3D normal(l1.y*l2.z - l2.y*l1.z, l1.z*l2.x - l2.z*l1.x, l1.x*l2.y - l2.x*l1.y);
-            Point3D cam(400,300,300);
+            // Point3D cam(400,300,300);
             int color_value = (int)(-normal.z)%255;
             sf::Color c(color_value, color_value, color_value);
-            if(normal.z >0){
+            // if(normal.z >0){
                 sf::Vertex line[4];
                 line[0]= sf::Vertex(sf::Vector2f(points[0]->x, points[0]->y),c);
                 line[1]= sf::Vertex(sf::Vector2f(points[1]->x, points[1]->y),c);
                 line[2]= sf::Vertex(sf::Vector2f(points[2]->x, points[2]->y),c);
                 line[3]= sf::Vertex(sf::Vector2f(points[0]->x, points[0]->y),c);
-                target.draw(line, 4, sf::Quads, states);
-            }
+                target.draw(line, 4, sf::LinesStrip, states);
+            // }
         }
 
         void rotateX(int angle){

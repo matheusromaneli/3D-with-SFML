@@ -8,8 +8,8 @@ int main(int argc, char const *argv[])
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
     Mesh plano;
-    plano.readFrom("craneo2.obj");
-    plano.resize(300);
+    plano.readFrom("teste.obj");
+    plano.resize(10);
     plano.translate(400,300);
     int dr = 2;
     sf::Vector2i mouse;

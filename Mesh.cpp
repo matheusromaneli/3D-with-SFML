@@ -80,7 +80,7 @@ class Mesh: public sf::Drawable{
             }
         }
 
-        void resize(int n){
+        void resize(float n){
             for(int i = 0; i < size_points; i++){
                 points[i].resize(n);
             }
@@ -95,7 +95,7 @@ class Mesh: public sf::Drawable{
                 if(type == 'v'){
                     size_points++;
                     points = (Point3D*) realloc(points, sizeof(Point3D)*size_points);
-                    points[i] = Point3D(p1,p2,p3);
+                    points[i] = Point3D(p1,-p2,p3);
                 } 
             }
             int l1 = (int)(p1);
@@ -104,6 +104,58 @@ class Mesh: public sf::Drawable{
             do{
                 this->addTriangle(points+l1-1, points+l2-1, points+l3-1);
             }while(fscanf(fe,"%c %d %d %d\n", &type, &l1, &l2, &l3) != -1);
+            // mergeSort(0, size_mesh-1);
         }
 
+        
+        int getMeshSize(){
+            return size_mesh;
+        }
 };
+
+// void mergeSort(int inicio, int fim){
+//     int i, j, k, metadeTamanho;
+//     Triangle *vetorTemp;
+//     if(inicio == fim) return;
+//     metadeTamanho = (inicio + fim ) / 2;
+
+//     mergeSort(inicio, metadeTamanho);
+//     mergeSort(metadeTamanho + 1, fim);
+
+//     i = inicio;
+//     j = metadeTamanho + 1;
+//     k = 0;
+//     vetorTemp = (Triangle *) malloc(sizeof(Triangle) * (fim - inicio + 1));
+
+//     while(i < metadeTamanho + 1 || j  < fim + 1) {
+//         if (i == metadeTamanho + 1 ) { 
+//             vetorTemp[k] = plane[j];
+//             j++;
+//             k++;
+//         }
+//         else {
+//             if (j == fim + 1) {
+//                 vetorTemp[k] = plane[i];
+//                 i++;
+//                 k++;
+//             }
+//             else {
+//                 if (plane[i].averageZ() < plane[j].averageZ()) {
+//                     vetorTemp[k] = plane[i];
+//                     i++;
+//                     k++;
+//                 }
+//                 else {
+//                     vetorTemp[k] = plane[j];
+//                     j++;
+//                     k++;
+//                 }
+//             }
+//         }
+
+//     }
+//     for(i = inicio; i <= fim; i++) {
+//         plane[i] = vetorTemp[i - inicio];
+//     }
+//     free(vetorTemp);
+// }

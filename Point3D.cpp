@@ -87,13 +87,20 @@ class Point3D{
       dy+= ty;
     }
 
-    void resize(int n){
-      x = x*n;
-      y = y*n;
+    void resize(float n){
+      x = ((x - dx)*n)+dx;
+      y = ((y - dy)*n)+dy;
       z = z*n;
     }
 
     void printCoord(){
       cout <<"x: "<< x <<" y: " << y <<" z: " << z << endl;
+    }
+
+    void normalize(){
+      float norma = sqrt(x*x + y*y + z*z);
+      x = x/norma;
+      y = y/norma;
+      z = z/norma;
     }
 };

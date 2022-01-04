@@ -8,8 +8,8 @@ int main(int argc, char const *argv[])
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
     Mesh plano;
-    plano.readFrom("teste.obj");
-    plano.resize(10);
+    plano.readFrom("craneoteste.obj");
+    plano.resize(50);
     plano.translate(400,300);
     int dr = 2;
     sf::Vector2i mouse;
@@ -19,6 +19,7 @@ int main(int argc, char const *argv[])
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         sf::Vector2i last = mouse;
+        // plano.mergeSort(0,plano.getMeshSize());
         while (window.pollEvent(event))
         {
             // "close requested" event: we close the window
@@ -30,12 +31,12 @@ int main(int argc, char const *argv[])
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
                 plano.rotateY(dr);
             }
-            // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-            //     plano.resize(size);
-            // }
-            // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !(size - 10 < 1)){
-            //     plano.resize(size);
-            // }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+                plano.resize(1.1);
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+                plano.resize(0.9);
+            }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
                 plano.selfRotateY(-dr);
             }

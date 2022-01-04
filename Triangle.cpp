@@ -9,6 +9,16 @@ class Triangle{
         Point3D* points[3];
         int translatedX = 0;
         int translatedY = 0;
+        float fNear = 0.1;
+        float fFar = 1000.0;
+        float fFov = 90.0;
+        float aspectRatio = 800/600;
+        float fFovRad = 1.0/tan(fFov*0.5/180.0 * 3.14159);
+        float dx = aspectRatio * fFovRad;
+        float dy = fFovRad;
+        float dz = fFar/(fFar - fNear);
+        float da = (-fFar * fNear)/(fFar - fNear);
+
     public:
         Triangle(Point3D* a,Point3D* b,Point3D* c){
             points[0] = a;
@@ -21,17 +31,19 @@ class Triangle{
             Point3D l1(points[1]->x - points[0]->x, points[1]->y - points[0]->y, points[1]->z - points[0]->z);
             Point3D l2(points[2]->x - points[0]->x, points[2]->y - points[0]->y, points[2]->z - points[0]->z);
             Point3D normal(l1.y*l2.z - l2.y*l1.z, l1.z*l2.x - l2.z*l1.x, l1.x*l2.y - l2.x*l1.y);
+            normal.normalize();
             // Point3D cam(400,300,300);
-            int color_value = (int)(-normal.z)%255;
-            sf::Color c(color_value, color_value, color_value);
-            // if(normal.z >0){
+            // cout<< normal.z << endl;
+            if(normal.z > 0.0 ){
+                int color_value = (int)((normal.z)*255);
+                sf::Color c(color_value, color_value, color_value);
                 sf::Vertex line[4];
-                line[0]= sf::Vertex(sf::Vector2f(points[0]->x, points[0]->y),c);
-                line[1]= sf::Vertex(sf::Vector2f(points[1]->x, points[1]->y),c);
-                line[2]= sf::Vertex(sf::Vector2f(points[2]->x, points[2]->y),c);
-                line[3]= sf::Vertex(sf::Vector2f(points[0]->x, points[0]->y),c);
+                line[0]= sf::Vertex(sf::Vector2f(points[0]->x *dx, points[0]->y *dy),c);
+                line[1]= sf::Vertex(sf::Vector2f(points[1]->x *dx, points[1]->y *dy),c);
+                line[2]= sf::Vertex(sf::Vector2f(points[2]->x *dx, points[2]->y *dy),c);
+                line[3]= sf::Vertex(sf::Vector2f(points[0]->x *dx, points[0]->y *dy),c);
                 target.draw(line, 4, sf::LinesStrip, states);
-            // }
+            }
         }
 
         void rotateX(int angle){
@@ -89,5 +101,9 @@ class Triangle{
             points[0]->printCoord();
             points[1]->printCoord();
             points[2]->printCoord();
+        }
+
+        float averageZ(){
+            return (points[0]->z + points[1]->z + points[2]->z)/3;
         }
 };
